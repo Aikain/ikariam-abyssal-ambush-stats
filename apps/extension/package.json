@@ -27,7 +27,6 @@
         "babel-plugin-react-compiler": "^1.0.0",
         "eslint": "^9.39.1",
         "typescript": "5.9.3",
-        "vite": "^7.2.7",
-        "vite-plugin-zip-pack": "^1.2.4"
+        "vite": "^7.2.7"
     }
 }
