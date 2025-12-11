@@ -6,6 +6,9 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+env:
+  TURBO_TELEMETRY_DISABLED: "1"
+
 jobs:
   lint:
     runs-on: ubuntu-latest

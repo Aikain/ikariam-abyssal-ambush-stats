@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+env:
+  TURBO_TELEMETRY_DISABLED: "1"
+
 concurrency:
   group: build
   cancel-in-progress: true
@@ -42,4 +45,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: release.zip
-          path: ./apps/extension/release/release.zip
+          path: apps/extension/release/release.zip
+          if-no-files-found: error
