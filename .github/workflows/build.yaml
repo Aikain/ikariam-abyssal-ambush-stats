@@ -46,3 +46,4 @@ jobs:
         with:
           name: release.zip
           path: apps/extension/release/release.zip
+          if-no-files-found: error
