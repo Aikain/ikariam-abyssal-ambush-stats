@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+env:
+  TURBO_TELEMETRY_DISABLED: "1"
+
 concurrency:
   group: build
   cancel-in-progress: true
