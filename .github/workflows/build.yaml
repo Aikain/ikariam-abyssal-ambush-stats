@@ -41,4 +41,4 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: ./apps/extension/release/release.zip
+          path: ./apps/extension/release/
