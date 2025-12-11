@@ -9,6 +9,7 @@ node_modules
 !.yarn/versions
 
 dist/
+release/
 
 .turbo
 

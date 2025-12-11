@@ -16,9 +16,8 @@
         "react-dom": "^19.2.1"
     },
     "devDependencies": {
-        "@ikariam-abyssal-ambush-stats/content-script": "*",
+        "@crxjs/vite-plugin": "^2.2.1",
         "@ikariam-abyssal-ambush-stats/eslint-config": "*",
-        "@ikariam-abyssal-ambush-stats/inject-script": "*",
         "@ikariam-abyssal-ambush-stats/types": "*",
         "@ikariam-abyssal-ambush-stats/typescript-config": "*",
         "@types/chrome": "^0.1.32",
@@ -28,6 +27,7 @@
         "babel-plugin-react-compiler": "^1.0.0",
         "eslint": "^9.39.1",
         "typescript": "5.9.3",
-        "vite": "^7.2.7"
+        "vite": "^7.2.7",
+        "vite-plugin-zip-pack": "^1.2.4"
     }
 }

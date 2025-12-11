@@ -1,7 +1,7 @@
 {
     "extends": "@ikariam-abyssal-ambush-stats/typescript-config/vite-react.json",
     "compilerOptions": {
-        "types": ["chrome"]
+        "types": ["vite/client", "chrome"]
     },
     "include": ["src"]
 }
