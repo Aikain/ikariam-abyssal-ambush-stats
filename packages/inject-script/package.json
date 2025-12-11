@@ -1,0 +1,18 @@
+{
+    "name": "@ikariam-abyssal-ambush-stats/inject-script",
+    "version": "0.1.0",
+    "license": "MIT",
+    "type": "module",
+    "main": "src/index.ts",
+    "scripts": {
+        "lint": "eslint src",
+        "check-types": "tsc --noEmit"
+    },
+    "devDependencies": {
+        "@ikariam-abyssal-ambush-stats/eslint-config": "*",
+        "@ikariam-abyssal-ambush-stats/types": "*",
+        "@ikariam-abyssal-ambush-stats/typescript-config": "*",
+        "eslint": "^9.39.1",
+        "typescript": "5.9.3"
+    }
+}

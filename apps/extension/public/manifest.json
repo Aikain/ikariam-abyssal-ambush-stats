@@ -1,0 +1,24 @@
+{
+    "$schema": "https://www.schemastore.org/chrome-manifest",
+    "manifest_version": 3,
+    "name": "Ikariam Abyssal Ambush Stats",
+    "version": "0.1.0",
+    "description": "Kerää syvyysväijytys taisteluraporttidataa Ikariamista.",
+    "permissions": ["storage"],
+    "host_permissions": ["https://*.ikariam.gameforge.com/*"],
+    "content_scripts": [
+        {
+            "matches": ["https://*.ikariam.gameforge.com/*"],
+            "js": ["content.js"]
+        }
+    ],
+    "web_accessible_resources": [
+        {
+            "resources": ["inject.js"],
+            "matches": ["https://*.ikariam.gameforge.com/*"]
+        }
+    ],
+    "action": {
+        "default_popup": "index.html"
+    }
+}

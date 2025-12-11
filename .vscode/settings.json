@@ -1,0 +1,27 @@
+{
+    "editor.formatOnSave": true,
+    "eslint.options": {
+        "flags": ["unstable_native_nodejs_ts_config"]
+    },
+    "files.exclude": {
+        "**/.turbo": true,
+        "**/.yarn": true,
+        "**/node_modules": true,
+        "**/yarn.lock": true
+    },
+    "[css]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
+}
