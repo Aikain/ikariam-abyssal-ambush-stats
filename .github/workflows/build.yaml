@@ -45,4 +45,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: release.zip
-          path: ./apps/extension/release/release.zip
+          path: apps/extension/release/release.zip
