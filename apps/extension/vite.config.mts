@@ -1,5 +1,8 @@
+import { crx } from '@crxjs/vite-plugin';
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
+
+import manifest from './manifest.config.js';
 
 export default defineConfig({
     plugins: [
@@ -8,20 +11,11 @@ export default defineConfig({
                 plugins: ['babel-plugin-react-compiler'],
             },
         }),
+        crx({ manifest }),
     ],
-    build: {
-        rollupOptions: {
-            input: {
-                main: 'index.html',
-                content: 'src/content.ts',
-                inject: 'src/inject.ts',
-            },
-            output: {
-                entryFileNames: (assetInfo) => {
-                    if (['content', 'inject'].indexOf(assetInfo.name) !== -1) return `${assetInfo.name}.js`;
-                    return 'assets/[name].[hash].js';
-                },
-            },
+    server: {
+        cors: {
+            origin: [/chrome-extension:\/\//],
         },
     },
 });

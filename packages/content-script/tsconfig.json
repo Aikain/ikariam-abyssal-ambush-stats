@@ -1,8 +1,0 @@
-{
-    "extends": "@ikariam-abyssal-ambush-stats/typescript-config/base.json",
-    "compilerOptions": {
-        "outDir": "dist/",
-        "types": ["chrome"]
-    },
-    "include": ["src"]
-}

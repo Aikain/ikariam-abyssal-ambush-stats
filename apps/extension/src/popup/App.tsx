@@ -44,7 +44,9 @@ const App = () => {
                 <ul className='list'>
                     {groupedReports.map(({ reports, title }) => (
                         <>
-                            <li className='item header'>{title}</li>
+                            <li key={title} className='item header'>
+                                {title}
+                            </li>
                             {reports.map(({ damage, date }) => (
                                 <li key={date} className='item'>
                                     <span className='date'>{new Date(date).toLocaleString()}</span>
