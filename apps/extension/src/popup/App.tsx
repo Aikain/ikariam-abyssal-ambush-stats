@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useState } from 'react';
 
-import { Report, Resource, Reward } from '@ikariam-abyssal-ambush-stats/types';
+import { Report, Reward, RewardType } from '@ikariam-abyssal-ambush-stats/types';
 
 import { translateResource } from './utils';
 
@@ -48,7 +48,7 @@ const App = () => {
             reports: reports.sort((a, b) => b.date.localeCompare(a.date)),
         }));
 
-    const resourceOrder: Resource[] = ['BUILDING_MATERIAL', 'WINE', 'MARBLE', 'CRYSTAL_GLASS', 'SULPHUR', 'GOLD'];
+    const resourceOrder: RewardType[] = ['BUILDING_MATERIAL', 'WINE', 'MARBLE', 'CRYSTAL_GLASS', 'SULPHUR', 'GOLD'];
 
     const groupedRewards = Object.values(Object.groupBy(rewards, ({ server, playerName }) => `${server}_${playerName}`))
         .filter((rewards) => !!rewards)
@@ -63,9 +63,9 @@ const App = () => {
                             total[resource] += count * size;
                             return total;
                         },
-                        {} as Record<Resource, number>,
+                        {} as Record<RewardType, number>,
                     ),
-                ) as [[Resource, number]]
+                ) as [[RewardType, number]]
             )
                 .map(([resource, amount]) => ({ amount, resource }))
                 .sort((a, b) => resourceOrder.indexOf(a.resource) - resourceOrder.indexOf(b.resource)),

@@ -94,15 +94,13 @@ export const parseCityNews = (): Reward[] =>
         )
         .map((obj) => {
             const dateText = obj.querySelector('.date')?.textContent.trim();
-            const infoText = obj.querySelector('.subject')?.textContent.trim();
+            const subjectText = obj.querySelector('.subject')?.textContent.trim();
 
-            if (!dateText || !infoText) return null;
+            if (!dateText || !subjectText) return null;
 
             const date = new Date(dateText.replace(/(\d{2}).(\d{2}).(\d{4}) (\d+).(\d{2})/, '$3-$2-$1 $4:$5'));
-            const [, count, reward] = infoText.match(/Vastaanotat (\d)(.*) palkinnoksi/) ?? [];
             return {
-                ...parseReward(reward),
-                count: parseInt(count),
+                ...parseReward(subjectText),
                 date: convertDateToISOString(date),
                 playerName: document.querySelector('.avatarName')?.textContent.trim() ?? '-',
                 server: location.hostname.replace('.ikariam.gameforge.com', ''),

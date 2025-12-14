@@ -1,12 +1,22 @@
-import { Resource } from '@ikariam-abyssal-ambush-stats/types';
+import { RewardType } from '@ikariam-abyssal-ambush-stats/types';
 
-const RESOURCE_TRANSLATION: Record<Resource, string> = {
+const RESOURCE_TRANSLATION: Record<RewardType, string> = {
     BUILDING_MATERIAL: 'rakennusmateriaalia',
     WINE: 'viiniä',
     MARBLE: 'marmoria',
     CRYSTAL_GLASS: 'kristallilasia',
     SULPHUR: 'rikkiä',
     GOLD: 'kultaa',
+    BRONSE_FLEECE: '',
+    PREMIUM_TRADER: '',
+    STEAM_CRYSTAL_DRILL: 'päivää höyrykristalliporaa',
+    STEAM_DRIVEN_FORKLIFT: '???',
+    STEAM_HAMMER: 'päivää höyryvasaraa',
+    STEAM_SAW: 'päivää höyrysahaa',
+    STEAM_SULPHUR_PADDLE_WHEEL: 'päivää höyrysiipiratasta',
+    STEAM_WINE_PRESS: 'päivää höyryviinipuristinta',
+    TOWN_RELOCATION: 'kaupungin siirtoa',
+    TRITON_ENGINES: 'tritoon moottoria',
 };
 
-export const translateResource = (resource: Resource): string => RESOURCE_TRANSLATION[resource];
+export const translateResource = (resource: RewardType): string => RESOURCE_TRANSLATION[resource];

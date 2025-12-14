@@ -1,4 +1,4 @@
-import { Resource, SimpleReward } from '@ikariam-abyssal-ambush-stats/types';
+import { Reward, RewardType, SimpleReward } from '@ikariam-abyssal-ambush-stats/types';
 
 export const convertDateToISOString = (date: Date, timeZone = 'Europe/Berlin'): string => {
     date.setHours(
@@ -8,13 +8,25 @@ export const convertDateToISOString = (date: Date, timeZone = 'Europe/Berlin'): 
     return date.toISOString();
 };
 
-const RESOURCE_MAP: Record<string, Resource> = {
+const RESOURCE_MAP: Record<string, RewardType> = {
     Rakennusmateriaali: 'BUILDING_MATERIAL',
     Viini: 'WINE',
     Marmori: 'MARBLE',
     Kristallilasi: 'CRYSTAL_GLASS',
     Rikki: 'SULPHUR',
     Kulta: 'GOLD',
+    Höyrysaha: 'STEAM_SAW',
+    Höyryviinipuristin: 'STEAM_WINE_PRESS',
+    Höyryvasara: 'STEAM_HAMMER',
+    Höyrykristallipora: 'STEAM_CRYSTAL_DRILL',
+    Höyrysiipiratas: 'STEAM_SULPHUR_PADDLE_WHEEL',
+    'Triton moottorit': 'TRITON_ENGINES',
+
+    // TODO
+    TODO_1: 'BRONSE_FLEECE',
+    TODO_2: 'PREMIUM_TRADER',
+    TODO_3: 'TOWN_RELOCATION',
+    TODO_4: 'STEAM_DRIVEN_FORKLIFT',
 };
 
 const SIZE_MAP: Record<string, number> = {
@@ -27,10 +39,13 @@ const SIZE_MAP: Record<string, number> = {
     '1M': 1_000_000,
 };
 
-export const parseReward = (reward: string): SimpleReward => {
-    const [, resource, size] = reward.replace(/Resurssilähetys: /, '').match(/(\w+) \((\w+)\)/) ?? [];
+export const parseReward = (subject: string): SimpleReward => {
+    const [, count, reward] = subject.match(/Vastaanotat (\d+)(.*) palkinnoksi/) ?? [];
+    const [, resource, size] = reward.replace(/Resurssilähetys: /, '').match(/(.*) \(([\d\w]+).*\)/) ?? [];
+
     return {
-        size: SIZE_MAP[size],
-        resource: RESOURCE_MAP[resource],
+        count: parseInt(count),
+        size: size ? (SIZE_MAP[size] ?? parseInt(size)) : 1,
+        resource: RESOURCE_MAP[resource ?? reward],
     };
 };
