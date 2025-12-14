@@ -1,4 +1,4 @@
-import { Reward, RewardType, SimpleReward } from '@ikariam-abyssal-ambush-stats/types';
+import { RewardType, SimpleReward } from '@ikariam-abyssal-ambush-stats/types';
 
 export const convertDateToISOString = (date: Date, timeZone = 'Europe/Berlin'): string => {
     date.setHours(
