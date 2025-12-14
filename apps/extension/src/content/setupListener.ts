@@ -1,13 +1,13 @@
-const setupListener = (targetId: string, callback: () => void) => {
+const setupListeners = (listeners: Record<string, () => void>, containerQuery = '#container') => {
     const observer = new MutationObserver((mutations) => {
         for (const mutation of mutations) {
             mutation.addedNodes.forEach((node) => {
-                if (node instanceof HTMLElement && node.id === targetId) callback();
+                if (node instanceof HTMLElement && listeners[node.id]) listeners[node.id]();
             });
         }
     });
 
-    const container = document.getElementById('container');
+    const container = document.querySelector(containerQuery);
 
     if (container)
         observer.observe(container, {
@@ -15,4 +15,4 @@ const setupListener = (targetId: string, callback: () => void) => {
         });
 };
 
-export default setupListener;
+export default setupListeners;

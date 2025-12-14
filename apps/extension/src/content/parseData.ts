@@ -1,10 +1,6 @@
-import { Report, Troop } from '@ikariam-abyssal-ambush-stats/types';
+import { Report, Reward, Troop } from '@ikariam-abyssal-ambush-stats/types';
 
-declare global {
-    interface Window {
-        dataSetForView?: { avatarId?: string };
-    }
-}
+import { convertDateToISOString, parseReward } from './utils';
 
 const translatedTroops: Record<string, Troop | undefined> = {
     // Units
@@ -37,7 +33,7 @@ const translatedTroops: Record<string, Troop | undefined> = {
     Huoltoalus: 'TENDER',
 };
 
-const parseData = (): Report | null => {
+export const parseAbyssalAmbushReport = (): Report | null => {
     const combatInfo = document.querySelector('.combatInfo');
     const headerDate = document.querySelector('.header .date');
 
@@ -50,12 +46,6 @@ const parseData = (): Report | null => {
 
     const damage = parseInt(damageText);
     const date = new Date(dateText.replace(/(\d{2}).(\d{2}).(\d{4}) (\d+).(\d{2}).(\d{2})/, '$3-$2-$1 $4:$5:$6'));
-    date.setHours(
-        date.getHours() +
-            Math.round(
-                (Date.now() - Date.parse(new Date().toLocaleString('sv', { timeZone: 'Europe/Berlin' }))) / 3600000,
-            ),
-    );
 
     const units = Array.from(document.querySelectorAll('.militaryList tr:not(.textblue):not(.line) td')).map((obj) =>
         obj.textContent.trim(),
@@ -77,9 +67,9 @@ const parseData = (): Report | null => {
 
     const data: Report = {
         server: location.hostname.replace('.ikariam.gameforge.com', ''),
-        playerId: parseInt(window.dataSetForView?.avatarId ?? '0'),
+        playerName: document.querySelector('.avatarName')?.textContent.trim() ?? '-',
         damage,
-        date: date.toISOString(),
+        date: convertDateToISOString(date),
         troops: {},
     };
 
@@ -96,4 +86,26 @@ const parseData = (): Report | null => {
     return data;
 };
 
-export default parseData;
+export const parseCityNews = (): Reward[] =>
+    Array.from(document.querySelectorAll('#inboxCity tr:has(.city .category.transport)'))
+        .filter(
+            (obj) =>
+                obj.querySelector('.subject')?.textContent.indexOf('palkinnoksi osallistumisestasi tapahtumaan') !== -1,
+        )
+        .map((obj) => {
+            const dateText = obj.querySelector('.date')?.textContent.trim();
+            const infoText = obj.querySelector('.subject')?.textContent.trim();
+
+            if (!dateText || !infoText) return null;
+
+            const date = new Date(dateText.replace(/(\d{2}).(\d{2}).(\d{4}) (\d+).(\d{2})/, '$3-$2-$1 $4:$5'));
+            const [, count, reward] = infoText.match(/Vastaanotat (\d)(.*) palkinnoksi/) ?? [];
+            return {
+                ...parseReward(reward),
+                count: parseInt(count),
+                date: convertDateToISOString(date),
+                playerName: document.querySelector('.avatarName')?.textContent.trim() ?? '-',
+                server: location.hostname.replace('.ikariam.gameforge.com', ''),
+            };
+        })
+        .filter((news) => news !== null);

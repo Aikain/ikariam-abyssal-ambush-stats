@@ -31,7 +31,7 @@ export type Troop = Unit | Ship;
 
 export interface Report {
     server: string;
-    playerId: number;
+    playerName: string;
     damage: number;
     date: string;
     troops: Partial<
@@ -44,4 +44,18 @@ export interface Report {
             }
         >
     >;
+}
+
+export type Resource = 'BUILDING_MATERIAL' | 'WINE' | 'MARBLE' | 'CRYSTAL_GLASS' | 'SULPHUR' | 'GOLD';
+
+export interface SimpleReward {
+    resource: Resource;
+    size: number;
+}
+
+export interface Reward extends SimpleReward {
+    count: number;
+    date: string;
+    playerName: string;
+    server: string;
 }
