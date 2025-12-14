@@ -31,7 +31,7 @@ export type Troop = Unit | Ship;
 
 export interface Report {
     server: string;
-    playerId: number;
+    playerName: string;
     damage: number;
     date: string;
     troops: Partial<
@@ -44,4 +44,34 @@ export interface Report {
             }
         >
     >;
+}
+
+export type RewardType =
+    | 'BUILDING_MATERIAL'
+    | 'WINE'
+    | 'MARBLE'
+    | 'CRYSTAL_GLASS'
+    | 'SULPHUR'
+    | 'GOLD'
+    | 'BRONSE_FLEECE'
+    | 'PREMIUM_TRADER'
+    | 'STEAM_HAMMER'
+    | 'STEAM_CRYSTAL_DRILL'
+    | 'STEAM_SAW'
+    | 'STEAM_SULPHUR_PADDLE_WHEEL'
+    | 'STEAM_WINE_PRESS'
+    | 'STEAM_DRIVEN_FORKLIFT'
+    | 'TOWN_RELOCATION'
+    | 'TRITON_ENGINES';
+
+export interface SimpleReward {
+    count: number;
+    resource: RewardType;
+    size: number;
+}
+
+export interface Reward extends SimpleReward {
+    date: string;
+    playerName: string;
+    server: string;
 }
