@@ -21,11 +21,12 @@ const RESOURCE_MAP: Record<string, RewardType> = {
     Höyrykristallipora: 'STEAM_CRYSTAL_DRILL',
     Höyrysiipiratas: 'STEAM_SULPHUR_PADDLE_WHEEL',
     'Triton moottorit': 'TRITON_ENGINES',
+    'Premium-myyjä': 'PREMIUM_TRADER',
+    Premiumtili: 'PREMIUM_ACCOUNT',
+    'Kaupungin siirtäminen': 'TOWN_RELOCATION',
 
     // TODO
     TODO_1: 'BRONSE_FLEECE',
-    TODO_2: 'PREMIUM_TRADER',
-    TODO_3: 'TOWN_RELOCATION',
     TODO_4: 'STEAM_DRIVEN_FORKLIFT',
 };
 
@@ -39,7 +40,14 @@ const SIZE_MAP: Record<string, number> = {
     '1M': 1_000_000,
 };
 
-export const parseReward = (subject: string): SimpleReward => {
+export const parseReward = (subject: string, img?: string): SimpleReward => {
+    if (img === 'Kylän kuvake: Tapahtuma')
+        return {
+            count: 1,
+            size: 1,
+            resource: 'TOWN_ICON',
+        };
+
     const [, count, reward] = subject.match(/Vastaanotat (\d+)(.*) palkinnoksi/) ?? [];
     const [, resource, size] = reward.replace(/Resurssilähetys: /, '').match(/(.*) \(([\d\w]+).*\)/) ?? [];
 
