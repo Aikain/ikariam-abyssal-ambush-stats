@@ -50,11 +50,13 @@ const App = () => {
 
     const resourceOrder: RewardType[] = ['BUILDING_MATERIAL', 'WINE', 'MARBLE', 'CRYSTAL_GLASS', 'SULPHUR', 'GOLD'];
 
-    const groupedRewards = Object.values(Object.groupBy(rewards, ({ server, playerName }) => `${server}_${playerName}`))
+    const groupedRewards = Object.values(
+        Object.groupBy(rewards, ({ date, playerName, server }) => `${server}_${playerName}_${date.split('T')[0]}`),
+    )
         .filter((rewards) => !!rewards)
         .filter((reward) => reward.length > 0)
         .map((rewards) => ({
-            title: `${rewards[0].server}, ${rewards[0].playerName}`,
+            title: `${rewards[0].server}, ${rewards[0].playerName} / ${new Date(rewards[0].date).toLocaleDateString()}`,
             rewards: (
                 Object.entries(
                     rewards.reduce(
@@ -69,6 +71,12 @@ const App = () => {
             )
                 .map(([resource, amount]) => ({ amount, resource }))
                 .sort((a, b) => resourceOrder.indexOf(a.resource) - resourceOrder.indexOf(b.resource)),
+            resourceTotal: rewards
+                .filter(
+                    ({ resource }) =>
+                        ['BUILDING_MATERIAL', 'WINE', 'MARBLE', 'CRYSTAL_GLASS', 'SULPHUR'].indexOf(resource) !== -1,
+                )
+                .reduce((total, cur) => total + cur.count * cur.size, 0),
         }));
 
     const amountFormatter = Intl.NumberFormat(undefined, {});
@@ -106,7 +114,7 @@ const App = () => {
                     <h2>Palkinnot</h2>
                     {groupedRewards.length > 0 ? (
                         <ul className='list'>
-                            {groupedRewards.map(({ rewards, title }, index) => (
+                            {groupedRewards.map(({ resourceTotal, rewards, title }, index) => (
                                 <Fragment key={index}>
                                     <li key={title} className='item header'>
                                         {title}
@@ -118,6 +126,9 @@ const App = () => {
                                             </span>
                                         </li>
                                     ))}
+                                    <li className='item'>
+                                        Yhteensä: {amountFormatter.format(resourceTotal)} resurssia
+                                    </li>
                                 </Fragment>
                             ))}
                         </ul>
