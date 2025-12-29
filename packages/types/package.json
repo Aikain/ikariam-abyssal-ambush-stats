@@ -11,7 +11,7 @@
     "devDependencies": {
         "@ikariam-abyssal-ambush-stats/eslint-config": "*",
         "@ikariam-abyssal-ambush-stats/typescript-config": "*",
-        "eslint": "^9.39.1",
+        "eslint": "^9.39.2",
         "typescript": "5.9.3"
     }
 }

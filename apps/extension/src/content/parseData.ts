@@ -90,17 +90,19 @@ export const parseCityNews = (): Reward[] =>
     Array.from(document.querySelectorAll('#inboxCity tr:has(.city .category.transport)'))
         .filter(
             (obj) =>
-                obj.querySelector('.subject')?.textContent.indexOf('palkinnoksi osallistumisestasi tapahtumaan') !== -1,
+                obj
+                    .querySelector('.subject')
+                    ?.textContent.match(/(Vastaanotat|Saat) (.*) palkinnoksi osallistumisestasi tapahtumaan/) !== null,
         )
         .map((obj) => {
             const dateText = obj.querySelector('.date')?.textContent.trim();
-            const subjectText = obj.querySelector('.subject')?.textContent.trim();
+            const subjectText = obj.querySelector('.subject');
 
             if (!dateText || !subjectText) return null;
 
             const date = new Date(dateText.replace(/(\d{2}).(\d{2}).(\d{4}) (\d+).(\d{2})/, '$3-$2-$1 $4:$5'));
             return {
-                ...parseReward(subjectText),
+                ...parseReward(subjectText.textContent.trim(), subjectText.querySelector('img')?.title.trim()),
                 date: convertDateToISOString(date),
                 playerName: document.querySelector('.avatarName')?.textContent.trim() ?? '-',
                 server: location.hostname.replace('.ikariam.gameforge.com', ''),

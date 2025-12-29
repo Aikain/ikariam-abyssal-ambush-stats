@@ -55,6 +55,7 @@ export type RewardType =
     | 'GOLD'
     | 'BRONSE_FLEECE'
     | 'PREMIUM_TRADER'
+    | 'PREMIUM_ACCOUNT'
     | 'STEAM_HAMMER'
     | 'STEAM_CRYSTAL_DRILL'
     | 'STEAM_SAW'
@@ -62,7 +63,8 @@ export type RewardType =
     | 'STEAM_WINE_PRESS'
     | 'STEAM_DRIVEN_FORKLIFT'
     | 'TOWN_RELOCATION'
-    | 'TRITON_ENGINES';
+    | 'TRITON_ENGINES'
+    | 'TOWN_ICON';
 
 export interface SimpleReward {
     count: number;

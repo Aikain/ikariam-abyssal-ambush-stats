@@ -67,6 +67,34 @@ describe.concurrent('parseReward', () => {
         );
     });
 
+    it('Vastaanotat 5Premium-myyjä palkinnoksi osallistumisestasi tapahtumaan.', async ({ expect }) => {
+        expect(parseReward('Vastaanotat 5Premium-myyjä palkinnoksi osallistumisestasi tapahtumaan.')).toStrictEqual({
+            count: 5,
+            resource: 'PREMIUM_TRADER',
+            size: 1,
+        });
+    });
+
+    it('Vastaanotat 1Premiumtili (30 päivää) palkinnoksi osallistumisestasi tapahtumaan.', async ({ expect }) => {
+        expect(
+            parseReward('Vastaanotat 1Premiumtili (30 päivää) palkinnoksi osallistumisestasi tapahtumaan.'),
+        ).toStrictEqual({
+            count: 1,
+            resource: 'PREMIUM_ACCOUNT',
+            size: 30,
+        });
+    });
+
+    it('Vastaanotat 1Kaupungin siirtäminen palkinnoksi osallistumisestasi tapahtumaan.', async ({ expect }) => {
+        expect(
+            parseReward('Vastaanotat 1Kaupungin siirtäminen palkinnoksi osallistumisestasi tapahtumaan.'),
+        ).toStrictEqual({
+            count: 1,
+            resource: 'TOWN_RELOCATION',
+            size: 1,
+        });
+    });
+
     it('Vastaanotat 3Resurssilähetys: Kulta (Minimaalinen) palkinnoksi osallistumisestasi tapahtumaan.', async ({
         expect,
     }) => {
@@ -178,6 +206,16 @@ describe.concurrent('parseReward', () => {
             count: 3,
             resource: 'BUILDING_MATERIAL',
             size: 1_000_000,
+        });
+    });
+
+    it('Saat Kylän kuvake: Tapahtuma palkinnoksi osallistumisestasi tapahtumaan.', async ({ expect }) => {
+        expect(
+            parseReward('Saat    palkinnoksi osallistumisestasi tapahtumaan.', 'Kylän kuvake: Tapahtuma'),
+        ).toStrictEqual({
+            count: 1,
+            resource: 'TOWN_ICON',
+            size: 1,
         });
     });
 });
