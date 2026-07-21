@@ -1,12 +1,16 @@
 root = true
 
 [*]
-trim_trailing_whitespace = true
+charset = utf-8
+indent_style = space
 insert_final_newline = true
-indent_size = 4
+trim_trailing_whitespace = true
 
-[*.{yml,yaml}]
-indent_size = 2
+[*.{html,json,mts,ts,tsx}]
+indent_size = 4
 
 [*.md]
 trim_trailing_whitespace = false
+
+[*.{yml,yaml}]
+indent_size = 2
