@@ -1,4 +1,9 @@
 {
     "extends": "@ikariam-abyssal-ambush-stats/typescript-config/base.json",
-    "include": ["src"]
+    "compilerOptions": {
+        "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.tsbuildinfo",
+    },
+    "include": [
+        "src",
+    ],
 }
