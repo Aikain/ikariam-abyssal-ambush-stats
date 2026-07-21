@@ -1,4 +1,5 @@
 import js from '@eslint/js';
+import { Linter } from 'eslint';
 import prettier from 'eslint-config-prettier/flat';
 import turbo from 'eslint-plugin-turbo';
 import { defineConfig } from 'eslint/config';
@@ -8,7 +9,7 @@ export default defineConfig(
     js.configs.recommended,
     tseslint.configs.strict,
     tseslint.configs.stylistic,
-    turbo.configs['flat/recommended'],
+    turbo.configs?.['flat/recommended'] as Linter.Config,
 
     // This must be the last one
     prettier,
