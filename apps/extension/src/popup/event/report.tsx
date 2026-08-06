@@ -16,10 +16,12 @@ const ReportList = ({ reports }: Props) => {
             <h2>Taistelut</h2>
             {finalReports.length > 0 ? (
                 <ul className={styles.list}>
-                    {finalReports.map(({ damage, date }) => (
+                    {finalReports.map(({ damage, date, kill }) => (
                         <li key={date} className={styles.item}>
                             <span className={styles.itemDate}>{new Date(date).toLocaleString()}</span>
-                            <span className={styles.itemDamage}>(Dmg: {damageFormatter.format(damage)})</span>
+                            <span className={styles.itemDamage}>
+                                (Dmg: {`${damageFormatter.format(damage)}${kill ? ' +25%' : ''}`})
+                            </span>
                         </li>
                     ))}
                 </ul>

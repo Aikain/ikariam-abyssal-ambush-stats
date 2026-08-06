@@ -62,7 +62,7 @@ const App = () => {
             </header>
             <main>
                 {events.map(({ reports, rewards, ...event }, index) => (
-                    <Event key={index} event={event} reports={reports} rewards={rewards} />
+                    <Event key={index} defaultOpen={index === 0} event={event} reports={reports} rewards={rewards} />
                 ))}
             </main>
             <footer>
