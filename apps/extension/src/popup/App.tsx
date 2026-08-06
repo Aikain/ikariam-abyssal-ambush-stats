@@ -1,8 +1,11 @@
-import { Fragment, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { Report, Reward, RewardType } from '@ikariam-abyssal-ambush-stats/types';
+import { ABYSSAL_AMBUSH_EVENTS } from '@ikariam-abyssal-ambush-stats/data';
+import { Report, Reward } from '@ikariam-abyssal-ambush-stats/types';
 
-import { translateResource } from './utils';
+import Event from './event';
+
+const MILLI_SECONDS_IN_DAY = 24 * 60 * 60 * 1000;
 
 const App = () => {
     const [reports, setReports] = useState<Report[]>([]);
@@ -40,46 +43,17 @@ const App = () => {
         );
     }, []);
 
-    const groupedReports = Object.values(Object.groupBy(reports, ({ server, playerName }) => `${server}_${playerName}`))
-        .filter((reports) => !!reports)
-        .filter((reports) => reports.length > 0)
-        .map((reports) => ({
-            title: `${reports[0].server}, ${reports[0].playerName}`,
-            reports: reports.sort((a, b) => b.date.localeCompare(a.date)),
-        }));
-
-    const resourceOrder: RewardType[] = ['BUILDING_MATERIAL', 'WINE', 'MARBLE', 'CRYSTAL_GLASS', 'SULPHUR', 'GOLD'];
-
-    const groupedRewards = Object.values(
-        Object.groupBy(rewards, ({ date, playerName, server }) => `${server}_${playerName}_${date.split('T')[0]}`),
-    )
-        .filter((rewards) => !!rewards)
-        .filter((reward) => reward.length > 0)
-        .map((rewards) => ({
-            title: `${rewards[0].server}, ${rewards[0].playerName} / ${new Date(rewards[0].date).toLocaleDateString()}`,
-            rewards: (
-                Object.entries(
-                    rewards.reduce(
-                        (total, { count, resource, size }) => {
-                            if (!total[resource]) total[resource] = 0;
-                            total[resource] += count * size;
-                            return total;
-                        },
-                        {} as Record<RewardType, number>,
-                    ),
-                ) as [[RewardType, number]]
-            )
-                .map(([resource, amount]) => ({ amount, resource }))
-                .sort((a, b) => resourceOrder.indexOf(a.resource) - resourceOrder.indexOf(b.resource)),
-            resourceTotal: rewards
-                .filter(
-                    ({ resource }) =>
-                        ['BUILDING_MATERIAL', 'WINE', 'MARBLE', 'CRYSTAL_GLASS', 'SULPHUR'].indexOf(resource) !== -1,
-                )
-                .reduce((total, cur) => total + cur.count * cur.size, 0),
-        }));
-
-    const amountFormatter = Intl.NumberFormat(undefined, {});
+    const events = ABYSSAL_AMBUSH_EVENTS.map((event) => ({
+        ...event,
+        reports: reports.filter(({ date }) => event.startTime <= new Date(date) && new Date(date) <= event.endTime),
+        rewards: rewards.filter(
+            ({ date }) =>
+                event.endTime <= new Date(date) &&
+                new Date(date).getTime() <= event.endTime.getTime() + 7 * MILLI_SECONDS_IN_DAY,
+        ),
+    }))
+        .filter(({ reports, rewards }) => reports.length > 0 || rewards.length > 0)
+        .sort((a, b) => (a.startTime < b.startTime ? 1 : -1));
 
     return (
         <>
@@ -87,57 +61,12 @@ const App = () => {
                 <h1>Ikariam Abyssal Ambush</h1>
             </header>
             <main>
-                <div className='container'>
-                    <h2>Taistelut</h2>
-                    {groupedReports.length > 0 ? (
-                        <ul className='list'>
-                            {groupedReports.map(({ reports, title }, index) => (
-                                <Fragment key={index}>
-                                    <li key={title} className='item header'>
-                                        {title}
-                                    </li>
-                                    {reports.map(({ damage, date }) => (
-                                        <li key={date} className='item'>
-                                            <span className='date'>{new Date(date).toLocaleString()}</span>
-                                            <span className='damage'>(Dmg: {damage})</span>
-                                        </li>
-                                    ))}
-                                </Fragment>
-                            ))}
-                        </ul>
-                    ) : (
-                        <span>Yhtään taisteluraporttia ei ole vielä kerätty.</span>
-                    )}
-                </div>
-
-                <div className='container'>
-                    <h2>Palkinnot</h2>
-                    {groupedRewards.length > 0 ? (
-                        <ul className='list'>
-                            {groupedRewards.map(({ resourceTotal, rewards, title }, index) => (
-                                <Fragment key={index}>
-                                    <li key={title} className='item header'>
-                                        {title}
-                                    </li>
-                                    {rewards.map(({ amount, resource }) => (
-                                        <li key={resource} className='item'>
-                                            <span className='damage'>
-                                                {amountFormatter.format(amount)} {translateResource(resource)}
-                                            </span>
-                                        </li>
-                                    ))}
-                                    <li className='item'>
-                                        Yhteensä: {amountFormatter.format(resourceTotal)} resurssia
-                                    </li>
-                                </Fragment>
-                            ))}
-                        </ul>
-                    ) : (
-                        <span>Yhtään palkintoa ei ole vielä kirjattu.</span>
-                    )}
-                </div>
+                {events.map(({ reports, rewards, ...event }, index) => (
+                    <Event key={index} event={event} reports={reports} rewards={rewards} />
+                ))}
             </main>
             <footer>
+                {/* TODO: move to settings */}
                 <button className='download-btn' onClick={downloadData}>
                     Download JSON file
                 </button>
