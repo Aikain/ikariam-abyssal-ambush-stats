@@ -9,6 +9,7 @@ import RewardList from './reward';
 import styles from './styles.module.css';
 
 interface Props {
+    defaultOpen: boolean;
     event: AbyssalAmbushEvent;
     reports: Report[];
     rewards: Reward[];
@@ -17,7 +18,7 @@ interface Props {
 const damageFormatter = Intl.NumberFormat(undefined, {});
 const dateRangeFormatter = new Intl.DateTimeFormat();
 
-const Event = ({ event: { endTime, name, startTime }, reports, rewards }: Props) => {
+const Event = ({ defaultOpen, event: { endTime, name, startTime }, reports, rewards }: Props) => {
     const groupedReports = Object.values(Object.groupBy(reports, ({ server, playerName }) => `${server}_${playerName}`))
         .filter((reports) => !!reports)
         .filter((reports) => reports.length > 0)
@@ -61,7 +62,7 @@ const Event = ({ event: { endTime, name, startTime }, reports, rewards }: Props)
         }));
 
     return (
-        <Disclosure as='div' className={styles.disclosure}>
+        <Disclosure as='div' className={styles.disclosure} defaultOpen={defaultOpen}>
             <DisclosureButton className={styles.disclosureButton}>
                 <div className={styles.details}>
                     <span className={styles.name}>{name}</span>
