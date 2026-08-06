@@ -6,6 +6,11 @@
             "vite/client",
             "chrome",
         ],
+        "paths": {
+            "@/icons/*": [
+                "./src/assets/icons/*",
+            ],
+        },
     },
     "include": [
         "src",

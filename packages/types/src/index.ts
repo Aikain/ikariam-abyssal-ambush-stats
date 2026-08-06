@@ -77,3 +77,9 @@ export interface Reward extends SimpleReward {
     playerName: string;
     server: string;
 }
+
+export interface AbyssalAmbushEvent {
+    name: string;
+    startTime: Date;
+    endTime: Date;
+}
