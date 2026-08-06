@@ -41,11 +41,13 @@ export const parseAbyssalAmbushReport = (): Report | null => {
 
     const damageText = combatInfo.textContent.match(/tekemään (\d+) vahinkoa/)?.[1];
     const dateText = headerDate.textContent.replace('(', '').replace(')', '');
+    const hpText = combatInfo.textContent.match(/arvoon (\d+)./)?.[1];
 
-    if (!damageText || !dateText) return null;
+    if (!damageText || !dateText || !hpText) return null;
 
     const damage = parseInt(damageText);
     const date = new Date(dateText.replace(/(\d{2}).(\d{2}).(\d{4}) (\d+).(\d{2}).(\d{2})/, '$3-$2-$1 $4:$5:$6'));
+    const hp = parseInt(hpText);
 
     const units = Array.from(document.querySelectorAll('.militaryList tr:not(.textblue):not(.line) td')).map((obj) =>
         obj.textContent.trim(),
@@ -70,6 +72,7 @@ export const parseAbyssalAmbushReport = (): Report | null => {
         playerName: document.querySelector('.avatarName')?.textContent.trim() ?? '-',
         damage,
         date: convertDateToISOString(date),
+        kill: hp === 0,
         troops: {},
     };
 

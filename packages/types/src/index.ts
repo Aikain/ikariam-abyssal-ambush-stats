@@ -33,6 +33,7 @@ export interface Report {
     server: string;
     playerName: string;
     damage: number;
+    kill?: boolean;
     date: string;
     troops: Partial<
         Record<

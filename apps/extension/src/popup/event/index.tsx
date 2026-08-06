@@ -54,7 +54,10 @@ const Event = ({ event: { endTime, name, startTime }, reports, rewards }: Props)
             key,
             server: key.split('_').at(0),
             playerName: key.split('_').at(1),
-            damage: groupedReports[key].reduce((total, cur) => total + cur.damage, 0),
+            damage: groupedReports[key].reduce(
+                (total, { damage, kill }) => total + Math.ceil(damage * (kill ? 1.25 : 1)),
+                0,
+            ),
         }));
 
     return (
