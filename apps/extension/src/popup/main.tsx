@@ -1,6 +1,9 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
+import { EventScreenshotProvider } from '@/hooks/useEventScreentshot/EventScreenshotProvider';
+import { NotificationProvider } from '@/hooks/useNotification/NotificationProvider';
+
 import App from './App';
 import './index.css';
 
@@ -11,6 +14,10 @@ const root = createRoot(container);
 
 root.render(
     <StrictMode>
-        <App />
+        <NotificationProvider>
+            <EventScreenshotProvider>
+                <App />
+            </EventScreenshotProvider>
+        </NotificationProvider>
     </StrictMode>,
 );

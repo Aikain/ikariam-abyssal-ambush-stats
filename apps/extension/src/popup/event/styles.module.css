@@ -78,6 +78,37 @@
     background-color: #35363a;
 }
 
+.innerDisclosureButtonActions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.51rem;
+}
+
+.innerDisclosureButtonActions .copyAction {
+    display: flex;
+
+    background: none;
+    color: #e8eaed;
+
+    border: none;
+    cursor: pointer;
+    font: inherit;
+    outline: inherit;
+
+    border-radius: 50%;
+    padding: 0.25rem;
+}
+
+.innerDisclosureButtonActions .copyAction:hover:not(:disabled) {
+    background-color: #292a2d;
+}
+
+.innerDisclosureButtonActions .copyAction:disabled {
+    color: #717376;
+    cursor: auto;
+}
+
 .innerDisclosurePanel {
     background-color: #303134;
 }

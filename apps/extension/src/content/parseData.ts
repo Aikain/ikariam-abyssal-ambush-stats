@@ -1,36 +1,37 @@
+import { Ship, Unit } from '@ikariam-abyssal-ambush-stats/data';
 import { Report, Reward, Troop } from '@ikariam-abyssal-ambush-stats/types';
 
 import { convertDateToISOString, parseReward } from './utils';
 
 const translatedTroops: Record<string, Troop | undefined> = {
     // Units
-    Hopliitti: 'HOPLITE',
-    Höyryjätti: 'STREAM_GIANT',
-    Keihäsmies: 'SPEARMAN',
-    Miekkamies: 'SWORDSMAN',
-    Linkomies: 'SLINGER',
-    Jousiampuja: 'ARCHER',
-    Kiväärimies: 'SULPHYR_CARABINEER',
-    Murtaja: 'BATTERING_RAM',
-    Katapultti: 'CATAPULT',
-    Heitin: 'MORTAR',
-    Gyrokopteri: 'GYROCOPTER',
-    Ilmapommikone: 'BALLOON_BOMBARDIER',
-    Kokki: 'COOK',
-    Lääkäri: 'DOCTOR',
+    Hopliitti: Unit.HOPLITE,
+    Höyryjätti: Unit.STREAM_GIANT,
+    Keihäsmies: Unit.SPEARMAN,
+    Miekkamies: Unit.SWORDSMAN,
+    Linkomies: Unit.SLINGER,
+    Jousiampuja: Unit.ARCHER,
+    Kiväärimies: Unit.SULPHYR_CARABINEER,
+    Murtaja: Unit.BATTERING_RAM,
+    Katapultti: Unit.CATAPULT,
+    Heitin: Unit.MORTAR,
+    Gyrokopteri: Unit.GYROCOPTER,
+    Ilmapommikone: Unit.BALLOON_BOMBARDIER,
+    Kokki: Unit.COOK,
+    Lääkäri: Unit.DOCTOR,
 
     // Ships
-    Liekinheitinalus: 'FIRE_SHIP',
-    Höyrymurtaja: 'STEAM_RAM',
-    Murtajalaiva: 'RAM_SHIP',
-    Tykkilaiva: 'BALLISTA_SHIP',
-    Katapulttilaiva: 'CATAPULT_SHIP',
-    Heitinalus: 'MORTAR_SHIP',
-    Rakettilaiva: 'ROCKET_SHIP',
-    Sukellusvene: 'DIVING_BOAT',
-    Taistelupikavene: 'PADDLE_SPEEDBOAT',
-    Ilmapommitukialus: 'BALLOON_CARRIER',
-    Huoltoalus: 'TENDER',
+    Liekinheitinalus: Ship.FIRE_SHIP,
+    Höyrymurtaja: Ship.STEAM_RAM,
+    Murtajalaiva: Ship.RAM_SHIP,
+    Tykkilaiva: Ship.BALLISTA_SHIP,
+    Katapulttilaiva: Ship.CATAPULT_SHIP,
+    Heitinalus: Ship.MORTAR_SHIP,
+    Rakettilaiva: Ship.ROCKET_SHIP,
+    Sukellusvene: Ship.DIVING_BOAT,
+    Taistelupikavene: Ship.PADDLE_SPEEDBOAT,
+    Ilmapommitukialus: Ship.BALLOON_CARRIER,
+    Huoltoalus: Ship.TENDER,
 };
 
 export const parseAbyssalAmbushReport = (): Report | null => {
