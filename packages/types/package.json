@@ -1,6 +1,6 @@
 {
     "name": "@ikariam-abyssal-ambush-stats/types",
-    "version": "0.2.1",
+    "version": "0.3.0",
     "license": "MIT",
     "type": "module",
     "types": "src/index.ts",
