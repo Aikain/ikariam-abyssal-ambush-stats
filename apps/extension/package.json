@@ -16,6 +16,7 @@
     "dependencies": {
         "@headlessui/react": "^2.2.10",
         "@ikariam-abyssal-ambush-stats/data": "*",
+        "html-to-image": "^1.11.13",
         "react": "^19.2.8",
         "react-dom": "^19.2.8"
     },

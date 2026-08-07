@@ -7,6 +7,9 @@
             "chrome",
         ],
         "paths": {
+            "@/hooks/*": [
+                "./src/hooks/*",
+            ],
             "@/icons/*": [
                 "./src/assets/icons/*",
             ],

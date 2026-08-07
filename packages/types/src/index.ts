@@ -1,31 +1,8 @@
-export type Unit =
-    | 'HOPLITE'
-    | 'STREAM_GIANT'
-    | 'SPEARMAN'
-    | 'SWORDSMAN'
-    | 'SLINGER'
-    | 'ARCHER'
-    | 'SULPHYR_CARABINEER'
-    | 'BATTERING_RAM'
-    | 'CATAPULT'
-    | 'MORTAR'
-    | 'GYROCOPTER'
-    | 'BALLOON_BOMBARDIER'
-    | 'COOK'
-    | 'DOCTOR';
+import { Ship, Unit } from '@ikariam-abyssal-ambush-stats/data';
 
-export type Ship =
-    | 'FIRE_SHIP'
-    | 'STEAM_RAM'
-    | 'RAM_SHIP'
-    | 'BALLISTA_SHIP'
-    | 'CATAPULT_SHIP'
-    | 'MORTAR_SHIP'
-    | 'ROCKET_SHIP'
-    | 'DIVING_BOAT'
-    | 'PADDLE_SPEEDBOAT'
-    | 'BALLOON_CARRIER'
-    | 'TENDER';
+export type Unit = (typeof Unit)[keyof typeof Unit];
+
+export type Ship = (typeof Ship)[keyof typeof Ship];
 
 export type Troop = Unit | Ship;
 
@@ -77,6 +54,14 @@ export interface Reward extends SimpleReward {
     date: string;
     playerName: string;
     server: string;
+}
+
+export interface ResourceCost {
+    wood?: number;
+    wine?: number;
+    marble?: number;
+    crystal?: number;
+    sulphur?: number;
 }
 
 export interface AbyssalAmbushEvent {
