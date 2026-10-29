@@ -17,24 +17,24 @@
         "@headlessui/react": "^2.2.10",
         "@ikariam-abyssal-ambush-stats/data": "*",
         "html-to-image": "^1.11.13",
-        "react": "^19.2.8",
-        "react-dom": "^19.2.8"
+        "react": "^19.3.1",
+        "react-dom": "^19.3.1"
     },
     "devDependencies": {
-        "@crxjs/vite-plugin": "^2.7.1",
+        "@crxjs/vite-plugin": "^3.0.0",
         "@ikariam-abyssal-ambush-stats/eslint-config": "*",
         "@ikariam-abyssal-ambush-stats/types": "*",
         "@ikariam-abyssal-ambush-stats/typescript-config": "*",
-        "@rolldown/plugin-babel": "^0.2.3",
-        "@types/chrome": "^0.2.5",
-        "@types/react": "^19.2.18",
-        "@types/react-dom": "^19.2.4",
-        "@vitejs/plugin-react": "^6.0.5",
+        "@rolldown/plugin-babel": "^0.2.4",
+        "@types/chrome": "^0.3.6",
+        "@types/react": "^19.3.0",
+        "@types/react-dom": "^19.3.0",
+        "@vitejs/plugin-react": "^6.1.2",
         "babel-plugin-react-compiler": "^1.0.0",
         "eslint": "^9.39.5",
         "typescript": "^6.0.3",
         "vite": "^8.3.5",
         "vite-plugin-svgr": "^5.2.0",
-        "vitest": "^5.0.0"
+        "vitest": "^5.0.5"
     }
 }
