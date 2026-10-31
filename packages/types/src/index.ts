@@ -68,6 +68,6 @@ export interface AbyssalAmbushEvent {
     name: string;
     startTime: Date;
     endTime: Date;
-    monster?: string;
-    story?: string;
+    monster: string;
+    story: string;
 }
